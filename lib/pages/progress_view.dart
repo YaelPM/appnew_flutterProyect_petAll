@@ -1,6 +1,7 @@
 import 'dart:async';
-
+import 'package:app_new/pages/home_page_widget.dart';
 import 'package:app_new/pages/landing_page.dart';
+import 'package:app_new/pages/registermascot.dart';
 import 'package:flutter/material.dart';
 import 'package:app_new/pages/home_view.dart';
 import 'package:app_new/pages/login_view.dart';
@@ -89,7 +90,13 @@ class _ProgressViewState extends State<ProgressView> {
           if(name == "landingPage")
           {
             Route route =
-                MaterialPageRoute(builder: ((context) => const LandingPage()));
+                MaterialPageRoute(builder: ((context) => const HomePageWidget()));
+            Navigator.push(context, route);
+          }
+          if(name == "registermascot")
+          {
+            Route route =
+                MaterialPageRoute(builder: ((context) => const RegistermascotWidget()));
             Navigator.push(context, route);
           }
         }

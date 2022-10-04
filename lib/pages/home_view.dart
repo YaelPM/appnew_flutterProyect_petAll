@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_new/pages/progress_view.dart';
 import 'package:app_new/styles/colors/colors_home_page.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   runApp(const HomeApp());
@@ -54,6 +55,7 @@ class HomeApp extends StatelessWidget {
                   User? user = await Authentication.iniciarSesion(context);
                   // ignore: avoid_print
                   print(user?.displayName);
+                  showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("landingPage"));
                 },
                 style:  ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

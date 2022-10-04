@@ -440,7 +440,7 @@ class _BodyContentState extends State<BodyContent> {
       print(map["message"]);
       _showAlertDialog(map["message"]);
 
-      String mensaje = "Si esta bien we";
+      String mensaje = "Si esta bien";
       return mensaje;
     } else {
       // Si esta respuesta no fue OK, lanza un error.
