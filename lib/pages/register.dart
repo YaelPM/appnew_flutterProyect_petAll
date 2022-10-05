@@ -280,7 +280,7 @@ class _BodyContentState extends State<BodyContent> {
                                 InkWell(
                                   onTap: () {
                                     Route route = MaterialPageRoute(
-                                        builder: (context) => const HomeApp());
+                                        builder: (context) => const HomeView());
                                     Navigator.push(context, route);
                                   },
                                   child: const Text(

@@ -1,18 +1,17 @@
-import 'package:app_new/pages/authentication.dart';
-import 'package:app_new/pages/authentication_facebook.dart';
+import 'package:app_new/pages/auth/authentication.dart';
+import 'package:app_new/pages/auth/authentication_facebook.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_new/pages/progress_view.dart';
 import 'package:app_new/styles/colors/colors_home_page.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
-  runApp(const HomeApp());
+  runApp(const HomeView());
 }
 
-class HomeApp extends StatelessWidget {
-  const HomeApp({Key? key}) : super(key: key);
+class HomeView extends StatelessWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -94,8 +93,7 @@ class HomeApp extends StatelessWidget {
               ),
               child: ElevatedButton(
                 onPressed: () async{
-                  User? userFacebook = await AuthenticationFacebook.iniciarsesionFacebook(context);
-                  print(userFacebook?.displayName);
+                  AuthenticationFacebook.signInWithFacebook();
                 },
                 style:  ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

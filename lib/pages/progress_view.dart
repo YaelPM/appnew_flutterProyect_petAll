@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:app_new/pages/home_page_widget.dart';
-import 'package:app_new/pages/landing_page.dart';
 import 'package:app_new/pages/registermascot.dart';
 import 'package:flutter/material.dart';
 import 'package:app_new/pages/home_view.dart';
@@ -62,11 +61,11 @@ class _ProgressViewState extends State<ProgressView> {
                 MaterialPageRoute(builder: ((context) => const RegisterView()));
             Navigator.push(context, route);
           }
-          if (name == "OnBoarding") {
+          if (name == "HomeView") {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeApp(),
+                builder: (context) => const HomeView(),
               ),
             );
           }

@@ -2,6 +2,9 @@
     package="com.example.app_new">
     
     <uses-permission android:name="android.permission.INTERNET"/>
+    <queries>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+    </queries>
    <application
         android:label="app_new"
         android:name="${applicationName}"
