@@ -122,7 +122,7 @@ class _OnBoardingState extends State<OnBoarding> {
       onPressed: () {
         if(index == size)
         {
-          showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("OnBoarding"));
+          showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("HomeView"));
         }else{
           if(index < size && index >= 0)
           {
