@@ -697,7 +697,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           .bodyText1
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 11,
+                                            fontSize: 10,
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
@@ -935,7 +935,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           .bodyText1
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 11,
+                                            fontSize: 10,
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),

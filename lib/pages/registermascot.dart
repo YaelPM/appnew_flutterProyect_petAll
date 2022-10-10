@@ -1,9 +1,13 @@
+import 'dart:io';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:app_new/flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RegistermascotWidget extends StatefulWidget {
   const RegistermascotWidget({Key? key}) : super(key: key);
@@ -13,56 +17,63 @@ class RegistermascotWidget extends StatefulWidget {
 }
 
 class _RegistermascotWidgetState extends State<RegistermascotWidget> {
-  TextEditingController? myBioController;
-  TextEditingController? yourNameController;
+  bool loading= false;
+  File? sampleImage;
+  FirebaseStorage storage = FirebaseStorage.instance;
+  TextEditingController? descripcionController;
+  TextEditingController? precioController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final CollectionReference productos =
+      FirebaseFirestore.instance.collection('productos');
+  DatabaseReference databaseReference = FirebaseDatabase.instance.ref("productos");
+  
   @override
   void initState() {
     super.initState();
-    myBioController = TextEditingController();
-    yourNameController = TextEditingController();
+    descripcionController = TextEditingController();
+    precioController = TextEditingController();
   }
 
   @override
   void dispose() {
-    myBioController?.dispose();
-    yourNameController?.dispose();
+    descripcionController?.dispose();
+    precioController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: const Size.fromHeight(100),
         child: AppBar(
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
           actions: [],
           flexibleSpace: FlexibleSpaceBar(
             title: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 14),
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 14),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: FlutterFlowIconButton(
                             borderColor: Colors.transparent,
                             borderRadius: 30,
                             borderWidth: 1,
                             buttonSize: 50,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back_rounded,
                               color: Color(0xFF090F13),
                               size: 30,
@@ -76,12 +87,12 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                     child: Text(
                       'Edit Profile',
                       style: FlutterFlowTheme.of(context).title2.override(
                             fontFamily: 'Lexend Deca',
-                            color: Color(0xFF090F13),
+                            color: const Color(0xFF090F13),
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
@@ -117,52 +128,53 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                       Container(
                         width: 100,
                         height: 100,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0xFFDBE2E7),
                           shape: BoxShape.circle,
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                          padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
                           child: Container(
                             width: 90,
                             height: 90,
                             clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
-                            child: Image.network(
-                              'https://images.unsplash.com/photo-1536164261511-3a17e671d380?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=630&q=80',
+                            child: sampleImage == null ?
+                            Image.asset(
+                              'assets/images/placeholder.png',
                               fit: BoxFit.fitWidth,
-                            ),
+                            ) : Image.file(sampleImage!.absolute, fit:  BoxFit.fitWidth)
                           ),
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 16),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 16),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FFButtonWidget(
                           onPressed: () {
-                            print('Button pressed ...');
+                            getImage();
                           },
                           text: 'Change Photo',
                           options: FFButtonOptions(
                             width: 130,
                             height: 40,
-                            color: Color(0xFFF1F4F8),
+                            color: const Color(0xFFF1F4F8),
                             textStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF4B39EF),
+                                      color: const Color(0xFF4B39EF),
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                     ),
                             elevation: 1,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1,
                             ),
@@ -172,49 +184,49 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
                     child: TextFormField(
-                      controller: yourNameController,
+                      controller: precioController,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Your Name',
+                        labelText: 'Precio',
                         labelStyle:
                             FlutterFlowTheme.of(context).bodyText2.override(
                                   fontFamily: 'Lexend Deca',
-                                  color: Color(0xFF95A1AC),
+                                  color: const Color(0xFF95A1AC),
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
                         hintStyle:
                             FlutterFlowTheme.of(context).bodyText2.override(
                                   fontFamily: 'Lexend Deca',
-                                  color: Color(0xFF95A1AC),
+                                  color: const Color(0xFF95A1AC),
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFF1F4F8),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFF1F4F8),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0x00000000),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0x00000000),
                             width: 2,
                           ),
@@ -223,60 +235,60 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding:
-                            EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                            const EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                       ),
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Lexend Deca',
-                            color: Color(0xFF090F13),
+                            color: const Color(0xFF090F13),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 12),
+                    padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 12),
                     child: TextFormField(
-                      controller: myBioController,
+                      controller: descripcionController,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelStyle:
                             FlutterFlowTheme.of(context).bodyText2.override(
                                   fontFamily: 'Lexend Deca',
-                                  color: Color(0xFF95A1AC),
+                                  color: const Color(0xFF95A1AC),
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
-                        hintText: 'Your bio',
+                        hintText: 'Descripcion',
                         hintStyle:
                             FlutterFlowTheme.of(context).bodyText2.override(
                                   fontFamily: 'Lexend Deca',
-                                  color: Color(0xFF95A1AC),
+                                  color: const Color(0xFF95A1AC),
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFF1F4F8),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFF1F4F8),
+                          borderSide: const BorderSide(
+                            color: const Color(0xFFF1F4F8),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
+                          borderSide: const BorderSide(
+                            color: const Color(0x00000000),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0x00000000),
                             width: 2,
                           ),
@@ -285,11 +297,11 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding:
-                            EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                            const EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                       ),
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Lexend Deca',
-                            color: Color(0xFF090F13),
+                            color: const Color(0xFF090F13),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
@@ -298,18 +310,39 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0.05),
+                    alignment: const AlignmentDirectional(0, 0.05),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
-                        },
+                        onPressed: () async {
+                        final String? descripcionC = descripcionController?.text;
+                        final double? price = double.tryParse(precioController!.text);
+                        print(descripcionC);
+                        if(price != null || descripcionC != null){
+                          DateTime datetime = DateTime.now();
+                          DateFormat dateFormat = DateFormat("yyyy.MM.dd hh:mm aaa");
+                          String stringTime= dateFormat.format(datetime);
+                          Reference ref = FirebaseStorage.instance.ref(stringTime);
+                          UploadTask uploadtask = ref.putFile(File(sampleImage!.path));
+                          await Future.value(uploadtask);
+                          String newUrl =await ref.getDownloadURL();
+                          databaseReference.child('1').set({
+                            'id': '1212',
+                            'title': newUrl
+                          });
+                          await productos.add({"imagen": newUrl, "precio": price, "descripcion": descripcionC});
+                          descripcionController!.text= "";
+                          precioController!.text = "";
+                          setState(() {
+                            sampleImage= null;
+                          });
+                        }
+                      },
                         text: 'Save Changes',
                         options: FFButtonOptions(
                           width: 340,
                           height: 60,
-                          color: Color(0xFF4B39EF),
+                          color: const Color(0xFF4B39EF),
                           textStyle:
                               FlutterFlowTheme.of(context).subtitle2.override(
                                     fontFamily: 'Lexend Deca',
@@ -318,7 +351,7 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                                     fontWeight: FontWeight.normal,
                                   ),
                           elevation: 2,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1,
                           ),
@@ -333,5 +366,19 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
         ),
       ),
     );
+    
+  }
+  
+  Future getImage() async{
+    final ImagePicker picker = ImagePicker();
+    // Pick an image
+    final image = await picker.pickImage(source: ImageSource.gallery);  
+    setState(() {
+      if(image!= null){
+        sampleImage= File(image.path);
+      }else{
+        print("No image selected");
+      }
+    });
   }
 }
