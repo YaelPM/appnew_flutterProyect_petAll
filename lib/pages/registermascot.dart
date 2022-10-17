@@ -89,7 +89,7 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                     child: Text(
-                      'Edit Profile',
+                      'Subir productos',
                       style: FlutterFlowTheme.of(context).title2.override(
                             fontFamily: 'Lexend Deca',
                             color: const Color(0xFF090F13),
@@ -321,16 +321,18 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                         if(price != null || descripcionC != null){
                           DateTime datetime = DateTime.now();
                           DateFormat dateFormat = DateFormat("yyyy.MM.dd hh:mm aaa");
+
                           String stringTime= dateFormat.format(datetime);
                           Reference ref = FirebaseStorage.instance.ref(stringTime);
                           UploadTask uploadtask = ref.putFile(File(sampleImage!.path));
                           await Future.value(uploadtask);
                           String newUrl =await ref.getDownloadURL();
-                          databaseReference.child('1').set({
-                            'id': '1212',
-                            'title': newUrl
+                          await databaseReference.push().set({
+                            'imagen': newUrl,
+                            'precio': price,
+                            'descripcion': descripcionC
                           });
-                          await productos.add({"imagen": newUrl, "precio": price, "descripcion": descripcionC});
+                          // await productos.add({"imagen": newUrl, "precio": price, "descripcion": descripcionC});
                           descripcionController!.text= "";
                           precioController!.text = "";
                           setState(() {
