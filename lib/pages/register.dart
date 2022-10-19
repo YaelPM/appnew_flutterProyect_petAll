@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -94,9 +95,10 @@ class BodyContent extends StatefulWidget {
 }
 
 class _BodyContentState extends State<BodyContent> {
+  
 
   final name_controller = TextEditingController();
-  final email_controller = TextEditingController();
+  var email_controller = TextEditingController();
   final password_controller = TextEditingController();
 
    @override
@@ -112,6 +114,7 @@ class _BodyContentState extends State<BodyContent> {
   bool visible = true;
   @override
   Widget build(BuildContext context) {
+    
     return Column(
       children: [
         Container(
@@ -148,6 +151,18 @@ class _BodyContentState extends State<BodyContent> {
           ),
         ),
         Container(
+          width: 310,
+          height: 50,
+          margin: const EdgeInsets.only(left: 0),
+          child: const Text(
+            'La contraseña debe contener caracteres, números y símbolos con un mínimo de 6 caracteres.',
+            style: TextStyle(
+              color: Color.fromARGB(255, 212, 20, 20),
+              fontSize: 12
+            ),
+          ),
+        ),
+        Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.only(left: 29, bottom: 5),
           child: const Text(
@@ -162,7 +177,7 @@ class _BodyContentState extends State<BodyContent> {
           child: TextField(
             controller: email_controller,
             decoration: InputDecoration(
-              labelText: 'Dirección de correo',
+             labelText: 'Dirección de correo',
               labelStyle: const TextStyle(
                 color: ColorsRegisterView.txFName,
               ),
@@ -180,6 +195,11 @@ class _BodyContentState extends State<BodyContent> {
             ),
           ),
         ),
+        Container(
+            
+           
+        ),
+       
         Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.only(left: 29, bottom: 5),
@@ -229,7 +249,7 @@ class _BodyContentState extends State<BodyContent> {
           child: const Text(
             'La contraseña debe contener caracteres, números y símbolos con un mínimo de 6 caracteres.',
             style: TextStyle(
-              color: ColorsRegisterView.txFName,
+              color: Color.fromARGB(255, 212, 20, 20),
               fontSize: 12
             ),
           ),
@@ -412,39 +432,48 @@ class _BodyContentState extends State<BodyContent> {
   }
 
   Future<String> fetchPost() async {
-    Map<String, String> headers = {'Content-Type': 'application/json'};
-    String api = 'desarrollovan-tis.dedyn.io:4010';
-    String path = 'Api/User/CreateUser';
-    final response = await http.post(
-      Uri.http(api, path),
-      headers: headers,
-      body: json.encode({
-        "idUser": 0,
-        "email": email_controller.text,
-        "name": name_controller.text,
-        "phoneNumber": "",
-        "pass": password_controller.text,
-        "idRole": 1,
-        "idPlatform": 2,
-        "idChannel": 1,
-        "guest": "",
-        "lasName": ""
-      }),
-    );
 
-    if (response.statusCode == 200) {
-      // Si el servidor devuelve una repuesta OK, parseamos el JSON
-      //return Post.fromJson(json.decode(response.body));
+    if (email_controller == null) {
+      // ignore: avoid_print
+      log('your message here');
+         return 'Please enter your email address';
+     }
 
-      final map = json.decode(response.body);
-      print(map["message"]);
-      _showAlertDialog(map["message"]);
+    return "mensaje";
+    
+    // Map<String, String> headers = {'Content-Type': 'application/json'};
+    // String api = 'desarrollovan-tis.dedyn.io:4010';
+    // String path = 'Api/User/CreateUser';
+    // final response = await http.post(
+    //   Uri.http(api, path),
+    //   headers: headers,
+    //   body: json.encode({
+    //     "idUser": 0,
+    //     "email": email_controller.text,
+    //     "name": name_controller.text,
+    //     "phoneNumber": "",
+    //     "pass": password_controller.text,
+    //     "idRole": 1,
+    //     "idPlatform": 2,
+    //     "idChannel": 1,
+    //     "guest": "",
+    //     "lasName": ""
+    //   }),
+    // );
 
-      String mensaje = "Si esta bien";
-      return mensaje;
-    } else {
-      // Si esta respuesta no fue OK, lanza un error.
-      throw Exception('Failed to load post');
-    }
+    // if (response.statusCode == 200) {
+    //   // Si el servidor devuelve una repuesta OK, parseamos el JSON
+    //   //return Post.fromJson(json.decode(response.body));
+
+    //   final map = json.decode(response.body);
+    //   print(map["message"]);
+    //   _showAlertDialog(map["message"]);
+
+    //   String mensaje = "Si esta bien";
+    //   return mensaje;
+    // } else {
+    //   // Si esta respuesta no fue OK, lanza un error.
+    //   throw Exception('Failed to load post');
+    // }
   }
 }

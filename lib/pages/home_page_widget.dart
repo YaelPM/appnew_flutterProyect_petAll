@@ -496,12 +496,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: Image.asset(
-                                  'assets/images/slde.png',
-                                  width: 350,
-                                  height: 150,
-                                  fit: BoxFit.cover,
-                                ),
+                                child: Slider(  
+                                min: 0,  
+                                max: 100,  
+                                value:2.toDouble(),  
+                                onChanged: (value) {  
+                                  setState(() {  
+                                      
+                                  });  
+                                },  
+                              ), 
                               ),
                             ],
                           ),
