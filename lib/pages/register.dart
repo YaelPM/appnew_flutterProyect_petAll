@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,6 @@ class RegisterView extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
-          child: Form(
             child: Column(
               children: [
                 Container(
@@ -82,7 +80,6 @@ class RegisterView extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }
@@ -95,11 +92,11 @@ class BodyContent extends StatefulWidget {
 }
 
 class _BodyContentState extends State<BodyContent> {
-  
 
   final name_controller = TextEditingController();
-  var email_controller = TextEditingController();
+  final email_controller = TextEditingController();
   final password_controller = TextEditingController();
+  final _keyForm = GlobalKey<FormState>();
 
    @override
   void dispose() {
@@ -114,298 +111,339 @@ class _BodyContentState extends State<BodyContent> {
   bool visible = true;
   @override
   Widget build(BuildContext context) {
-    
-    return Column(
-      children: [
-        Container(
-          alignment: Alignment.topLeft,
-          margin: const EdgeInsets.only(left: 29, bottom: 5),
-          child: const Text(
-            'Nombre',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Container(
-          width: 310,
-          height: 70,
-          margin: const EdgeInsets.only(bottom: 12),
-          child: TextFormField(
-            controller: name_controller,
-            decoration: InputDecoration(
-              labelText: 'Nombre',
-              labelStyle: const TextStyle(
-                color: ColorsRegisterView.txFName,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  color: ColorsRegisterView.borderTf,
-                  width: 1.5,
-                ),
-              ),
-            ),
-            style: const TextStyle(
-              fontSize: 16,
-              color: ColorsRegisterView.txFName,
-            ),
-          ),
-        ),
-        Container(
-          width: 310,
-          height: 50,
-          margin: const EdgeInsets.only(left: 0),
-          child: const Text(
-            'La contraseña debe contener caracteres, números y símbolos con un mínimo de 6 caracteres.',
-            style: TextStyle(
-              color: Color.fromARGB(255, 212, 20, 20),
-              fontSize: 12
-            ),
-          ),
-        ),
-        Container(
-          alignment: Alignment.topLeft,
-          margin: const EdgeInsets.only(left: 29, bottom: 5),
-          child: const Text(
-            'Correo electrónico',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Container(
-          width: 310,
-          height: 70,
-          margin: const EdgeInsets.only(bottom: 12),
-          child: TextField(
-            controller: email_controller,
-            decoration: InputDecoration(
-             labelText: 'Dirección de correo',
-              labelStyle: const TextStyle(
-                color: ColorsRegisterView.txFName,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  color: ColorsRegisterView.borderTf,
-                  width: 1.5,
-                ),
-              ),
-            ),
-            style: const TextStyle(
-              fontSize: 16,
-              color: ColorsRegisterView.txFName,
-            ),
-          ),
-        ),
-        Container(
-            
-           
-        ),
-       
-        Container(
-          alignment: Alignment.topLeft,
-          margin: const EdgeInsets.only(left: 29, bottom: 5),
-          child: const Text(
-            'Contraseña',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-        SizedBox(
-          width: 310,
-          height: 70,
-          child: TextField(
-            controller: password_controller,
-            obscureText: visible,
-            obscuringCharacter: '*',
-            decoration: InputDecoration(
-              labelText: 'Contraseña',
-              labelStyle: const TextStyle(
-                color: ColorsRegisterView.txFName,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  color: ColorsRegisterView.borderTf,
-                  width: 1.5,
-                ),
-              ),
-              suffixIcon: IconButton(
-                onPressed: () {
-                  setState(() {
-                    visible = !visible;
-                  });
-                },
-                icon: Icon(visible ? Icons.visibility_off : Icons.visibility),
-              ),
-            ),
-            style: const TextStyle(
-              fontSize: 16,
-              color: ColorsRegisterView.txFName,
-            ),
-          ),
-        ),
-        Container(
-          width: 310,
-          height: 50,
-          margin: const EdgeInsets.only(left: 0),
-          child: const Text(
-            'La contraseña debe contener caracteres, números y símbolos con un mínimo de 6 caracteres.',
-            style: TextStyle(
-              color: Color.fromARGB(255, 212, 20, 20),
-              fontSize: 12
-            ),
-          ),
-        ),
-        Container(
-          width: 310,
-          height: 50,
-          margin: const EdgeInsets.only(left: 0),
-          child: Row(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    height: 50,
-                    margin: const EdgeInsets.only(right: 0, bottom: 14),
-                    child: Checkbox(
-                        value: value,
-                        side: const BorderSide(
-                          color: ColorsRegisterView.borderRadiusCheck,
-                          width: 1.5,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        onChanged: (bool? valueNew) {
-                          setState(() {
-                            value = valueNew!;
-                          });
-                        }),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    child: Row(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const Text(
-                                  'Al registrarme, acepto los',
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Route route = MaterialPageRoute(
-                                        builder: (context) => const HomeView());
-                                    Navigator.push(context, route);
-                                  },
-                                  child: const Text(
-                                    ' términos y',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorsRegisterView.txtBtnTerminos,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: const [
-                                InkWell(
-                                  child: Text(
-                                    'condiciones',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorsRegisterView.txtBtnTerminos,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                InkWell(
-                                  child: Text(
-                                    ' y la',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                                InkWell(
-                                  child: Text(
-                                    ' política de privacidad',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorsRegisterView.txtBtnTerminos,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: 310,
-          height: 50,
-          margin: const EdgeInsets.only(top: 26),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: ElevatedButton(
-            onPressed: () {
-              fetchPost();
-            },
-            style: ElevatedButton.styleFrom(
-                primary: ColorsRegisterView.btnNewAccount,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                )),
+    return Form(
+      key: _keyForm,
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.only(left: 29, bottom: 5),
             child: const Text(
-              'Crear Cuenta',
-              style: TextStyle(fontSize: 18),
+              'Nombre',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
-        ),
-        Container(
-          width: 310,
-          margin: const EdgeInsets.only(top: 12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children:  [
-              const Text(
-                '¿Ya tienes cuenta?',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w400,
+          Container(
+            width: 310,
+            height: 70,
+            margin: const EdgeInsets.only(bottom: 12),
+            child: TextFormField(
+              controller: name_controller,
+              ////////////////////////////////////////////////////////////////////////
+              validator: (value){
+                if(RegExp(r"[A-Za-z]").hasMatch(value!)){
+                  return("validado, solo letras");
+                }else{
+                  return("No valido, hay numeros");
+                }
+              },
+              /////////////////////////////////////////////////////////////////////////
+              decoration: InputDecoration(
+                labelText: 'Nombre',
+                labelStyle: const TextStyle(
+                  color: ColorsRegisterView.txFName,
                 ),
-              ),
-              InkWell(
-                child:const Text(
-                  ' Iniciar sesión',
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: ColorsRegisterView.txtBtnTerminos,
-                    fontWeight: FontWeight.bold,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: ColorsRegisterView.borderTf,
+                    width: 1.5,
                   ),
                 ),
-                onTap: (){
-                  showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("RegistroInicioSesion"));
-                },
-              )
-            ],
+              ),
+              style: const TextStyle(
+                fontSize: 16,
+                color: ColorsRegisterView.txFName,
+              ),
+            ),
           ),
-        ),
-      ],
+          Container(
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.only(left: 29, bottom: 5),
+            child: const Text(
+              'Correo electrónico',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            width: 310,
+            height: 70,
+            margin: const EdgeInsets.only(bottom: 12),
+            child: TextFormField(
+              controller: email_controller,
+              //////////////////////////////////////////////////////////////////////////
+               validator: (value){
+                if(RegExp(r"[A-Za-z]").hasMatch(value!)){
+                  return("validado, solo letras");
+                }else{
+                  return("No valido, hay numeros");
+                }
+              },
+              //////////////////////////////////////////////////////////////////////////////
+              decoration: InputDecoration(
+                labelText: 'Dirección de correo',
+                labelStyle: const TextStyle(
+                  color: ColorsRegisterView.txFName,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: ColorsRegisterView.borderTf,
+                    width: 1.5,
+                  ),
+                ),
+              ),
+              style: const TextStyle(
+                fontSize: 16,
+                color: ColorsRegisterView.txFName,
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.only(left: 29, bottom: 5),
+            child: const Text(
+              'Contraseña',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(
+            width: 310,
+            height: 70,
+            child: TextFormField(
+              controller: password_controller,
+              obscureText: visible,
+              obscuringCharacter: '*',
+              decoration: InputDecoration(
+                labelText: 'Contraseña',
+                labelStyle: const TextStyle(
+                  color: ColorsRegisterView.txFName,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: ColorsRegisterView.borderTf,
+                    width: 1.5,
+                  ),
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      visible = !visible;
+                    });
+                  },
+                  icon: Icon(visible ? Icons.visibility_off : Icons.visibility),
+                ),
+              ),
+              style: const TextStyle(
+                fontSize: 16,
+                color: ColorsRegisterView.txFName,
+              ),
+            ),
+          ),
+          Container(
+            width: 310,
+            height: 50,
+            margin: const EdgeInsets.only(left: 0),
+            child: const Text(
+              'La contraseña debe contener caracteres, números y símbolos con un mínimo de 6 caracteres.',
+              style: TextStyle(
+                color: ColorsRegisterView.txFName,
+                fontSize: 12
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.only(left: 29, bottom: 5),
+            child: const Text(
+              'Teléfono',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            width: 310,
+            height: 70,
+            margin: const EdgeInsets.only(bottom: 12),
+            child: TextFormField(
+              controller: email_controller,
+              decoration: InputDecoration(
+                labelText: 'Teléfono',
+                labelStyle: const TextStyle(
+                  color: ColorsRegisterView.txFName,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: ColorsRegisterView.borderTf,
+                    width: 1.5,
+                  ),
+                ),
+              ),
+              style: const TextStyle(
+                fontSize: 16,
+                color: ColorsRegisterView.txFName,
+              ),
+            ),
+          ),
+          Container(
+            width: 310,
+            height: 50,
+            margin: const EdgeInsets.only(left: 0),
+            child: Row(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      height: 50,
+                      margin: const EdgeInsets.only(right: 0, bottom: 14),
+                      child: Checkbox(
+                          value: value,
+                          side: const BorderSide(
+                            color: ColorsRegisterView.borderRadiusCheck,
+                            width: 1.5,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          onChanged: (bool? valueNew) {
+                            setState(() {
+                              value = valueNew!;
+                            });
+                          }),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      child: Row(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Al registrarme, acepto los',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Route route = MaterialPageRoute(
+                                          builder: (context) => const HomeView());
+                                      Navigator.push(context, route);
+                                    },
+                                    child: const Text(
+                                      ' términos y',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: ColorsRegisterView.txtBtnTerminos,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: const [
+                                  InkWell(
+                                    child: Text(
+                                      'condiciones',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: ColorsRegisterView.txtBtnTerminos,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    child: Text(
+                                      ' y la',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    child: Text(
+                                      ' política de privacidad',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: ColorsRegisterView.txtBtnTerminos,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 310,
+            height: 50,
+            margin: const EdgeInsets.only(top: 26),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: ElevatedButton(
+              onPressed: () {
+                if(_keyForm.currentState!.validate()){
+                  print("Validado");
+                }else{
+                  print("No valido");
+                }
+                // fetchPost();
+              },
+              style: ElevatedButton.styleFrom(
+                  primary: ColorsRegisterView.btnNewAccount,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  )),
+              child: const Text(
+                'Crear Cuenta',
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          ),
+          Container(
+            width: 310,
+            margin: const EdgeInsets.only(top: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:  [
+                const Text(
+                  '¿Ya tienes cuenta?',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                InkWell(
+                  child:const Text(
+                    ' Iniciar sesión',
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: ColorsRegisterView.txtBtnTerminos,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onTap: (){
+                    showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("RegistroInicioSesion"));
+                  },
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -432,48 +470,39 @@ class _BodyContentState extends State<BodyContent> {
   }
 
   Future<String> fetchPost() async {
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+    String api = 'desarrollovan-tis.dedyn.io:4010';
+    String path = 'Api/User/CreateUser';
+    final response = await http.post(
+      Uri.http(api, path),
+      headers: headers,
+      body: json.encode({
+        "idUser": 0,
+        "email": email_controller.text,
+        "name": name_controller.text,
+        "phoneNumber": "",
+        "pass": password_controller.text,
+        "idRole": 1,
+        "idPlatform": 2,
+        "idChannel": 1,
+        "guest": "",
+        "lasName": ""
+      }),
+    );
 
-    if (email_controller == null) {
-      // ignore: avoid_print
-      log('your message here');
-         return 'Please enter your email address';
-     }
+    if (response.statusCode == 200) {
+      // Si el servidor devuelve una repuesta OK, parseamos el JSON
+      //return Post.fromJson(json.decode(response.body));
 
-    return "mensaje";
-    
-    // Map<String, String> headers = {'Content-Type': 'application/json'};
-    // String api = 'desarrollovan-tis.dedyn.io:4010';
-    // String path = 'Api/User/CreateUser';
-    // final response = await http.post(
-    //   Uri.http(api, path),
-    //   headers: headers,
-    //   body: json.encode({
-    //     "idUser": 0,
-    //     "email": email_controller.text,
-    //     "name": name_controller.text,
-    //     "phoneNumber": "",
-    //     "pass": password_controller.text,
-    //     "idRole": 1,
-    //     "idPlatform": 2,
-    //     "idChannel": 1,
-    //     "guest": "",
-    //     "lasName": ""
-    //   }),
-    // );
+      final map = json.decode(response.body);
+      print(map["message"]);
+      _showAlertDialog(map["message"]);
 
-    // if (response.statusCode == 200) {
-    //   // Si el servidor devuelve una repuesta OK, parseamos el JSON
-    //   //return Post.fromJson(json.decode(response.body));
-
-    //   final map = json.decode(response.body);
-    //   print(map["message"]);
-    //   _showAlertDialog(map["message"]);
-
-    //   String mensaje = "Si esta bien";
-    //   return mensaje;
-    // } else {
-    //   // Si esta respuesta no fue OK, lanza un error.
-    //   throw Exception('Failed to load post');
-    // }
+      String mensaje = "Si esta bien";
+      return mensaje;
+    } else {
+      // Si esta respuesta no fue OK, lanza un error.
+      throw Exception('Failed to load post');
+    }
   }
 }

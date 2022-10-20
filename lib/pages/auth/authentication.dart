@@ -26,5 +26,15 @@ class Authentication{
   }
     return null;
   }
+  // static Future<User?> checkIfIsLogued() async {
+  //   User? userR;
+  //   FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //     if (user == null) {
+  //       print('User is currently signed out!');
+  //     } else {
+  //       userR= user;
+  //     }
+  //   });
+  // }
 }
  

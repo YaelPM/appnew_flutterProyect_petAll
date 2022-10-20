@@ -137,7 +137,7 @@ class HomeView extends StatelessWidget {
               child: 
                 ElevatedButton( 
                   onPressed: (){
-                    showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("landingPage"));
+                    showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("MailRegister"));
                 },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
