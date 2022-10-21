@@ -212,6 +212,24 @@ class _BodyContentState extends State<BodyContent> {
             height: 70,
             child: TextFormField(
               controller: password_controller,
+               validator: (value){
+                if(RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value!)){
+                  return("validado, solo letras");
+                }else{
+                   Container(
+            width: 310,
+            height: 50,
+            margin: const EdgeInsets.only(left: 0),
+            child: const Text(
+              'La contraseña debe contener caracteres, números y símbolos con un mínimo de 6 caracteres.',
+              style: TextStyle(
+                color: ColorsRegisterView.txFName,
+                fontSize: 12
+              ),
+            ),
+          );
+                }
+              },
               obscureText: visible,
               obscuringCharacter: '*',
               decoration: InputDecoration(
@@ -241,18 +259,7 @@ class _BodyContentState extends State<BodyContent> {
               ),
             ),
           ),
-          Container(
-            width: 310,
-            height: 50,
-            margin: const EdgeInsets.only(left: 0),
-            child: const Text(
-              'La contraseña debe contener caracteres, números y símbolos con un mínimo de 6 caracteres.',
-              style: TextStyle(
-                color: ColorsRegisterView.txFName,
-                fontSize: 12
-              ),
-            ),
-          ),
+         
           Container(
             alignment: Alignment.topLeft,
             margin: const EdgeInsets.only(left: 29, bottom: 5),
