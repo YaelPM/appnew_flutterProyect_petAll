@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -96,6 +97,7 @@ class _BodyContentState extends State<BodyContent> {
   final name_controller = TextEditingController();
   final email_controller = TextEditingController();
   final password_controller = TextEditingController();
+  final telefono_controller = TextEditingController();
   final _keyForm = GlobalKey<FormState>();
 
    @override
@@ -103,6 +105,7 @@ class _BodyContentState extends State<BodyContent> {
     name_controller.dispose();
     email_controller.dispose();
     password_controller.dispose();
+    telefono_controller.dispose();
     super.dispose();
   }
 
@@ -129,13 +132,15 @@ class _BodyContentState extends State<BodyContent> {
             margin: const EdgeInsets.only(bottom: 12),
             child: TextFormField(
               controller: name_controller,
+              ////////////////////////////////////////////////////////////////////////
               validator: (value){
                 if(RegExp(r"[A-Za-z]").hasMatch(value!)){
-                  return("validado, solo letras");
+                  return null;
                 }else{
                   return("No valido, hay numeros");
                 }
               },
+              /////////////////////////////////////////////////////////////////////////
               decoration: InputDecoration(
                 labelText: 'Nombre',
                 labelStyle: const TextStyle(
@@ -169,6 +174,15 @@ class _BodyContentState extends State<BodyContent> {
             margin: const EdgeInsets.only(bottom: 12),
             child: TextFormField(
               controller: email_controller,
+              //////////////////////////////////////////////////////////////////////////
+               validator: (value){
+                if(RegExp(r"[A-Za-z]").hasMatch(value!)){
+                  return null;
+                }else{
+                  return("No valido, hay numeros");
+                }
+              },
+              //////////////////////////////////////////////////////////////////////////////
               decoration: InputDecoration(
                 labelText: 'Dirección de correo',
                 labelStyle: const TextStyle(
@@ -201,6 +215,13 @@ class _BodyContentState extends State<BodyContent> {
             height: 70,
             child: TextFormField(
               controller: password_controller,
+               validator: (value){
+                if(RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value!)){
+                  return null;
+                }else{
+                  return("No valido");
+                }
+              },
               obscureText: visible,
               obscuringCharacter: '*',
               decoration: InputDecoration(
@@ -211,7 +232,7 @@ class _BodyContentState extends State<BodyContent> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: const BorderSide(
-                    color: ColorsRegisterView.borderTf,
+                    color: Color.fromARGB(255, 17, 190, 109),
                     width: 1.5,
                   ),
                 ),
@@ -230,18 +251,7 @@ class _BodyContentState extends State<BodyContent> {
               ),
             ),
           ),
-          Container(
-            width: 310,
-            height: 50,
-            margin: const EdgeInsets.only(left: 0),
-            child: const Text(
-              'La contraseña debe contener caracteres, números y símbolos con un mínimo de 6 caracteres.',
-              style: TextStyle(
-                color: ColorsRegisterView.txFName,
-                fontSize: 12
-              ),
-            ),
-          ),
+         
           Container(
             alignment: Alignment.topLeft,
             margin: const EdgeInsets.only(left: 29, bottom: 5),
@@ -255,7 +265,8 @@ class _BodyContentState extends State<BodyContent> {
             height: 70,
             margin: const EdgeInsets.only(bottom: 12),
             child: TextFormField(
-              controller: email_controller,
+              controller: telefono_controller,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Teléfono',
                 labelStyle: const TextStyle(
@@ -383,9 +394,43 @@ class _BodyContentState extends State<BodyContent> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if(_keyForm.currentState!.validate()){
-                  print("Validado");
+                   try {
+                      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: email_controller.text,
+                        password: password_controller.text,
+                      );
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'weak-password') {
+                        print('The password provided is too weak.');
+                      } else if (e.code == 'email-already-in-use') {
+                        print('The account already exists for that email.');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('The account already exists for that email.'),
+                            action: SnackBarAction(
+                              label: 'Okay',
+                              onPressed: () {
+                                email_controller.text = "";
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Datos incorrectos, favor de verificar!'),
+                            action: SnackBarAction(
+                              label: 'Okay',
+                              onPressed: () {
+                                email_controller.text = "";
+                              },
+                            ),
+                          ),
+                        );
+                    }
                 }else{
                   print("No valido");
                 }
@@ -424,7 +469,7 @@ class _BodyContentState extends State<BodyContent> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onTap: (){
+                  onTap: () {
                     showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("RegistroInicioSesion"));
                   },
                 )

@@ -131,14 +131,6 @@ class _OnBoardingState extends State<OnBoarding> {
           }
         }
       },
-      child: Text(
-        index == size ? "Continuar" : "Siguiente",
-        style: TextStyle(
-            color: index == size
-                ? ColorsSelect.textButton2
-                : ColorsSelect.textButton1,
-            fontSize: 16),
-      ),
       style: ElevatedButton.styleFrom(
         primary: index == size
             ? ColorsSelect.btnBackgroundBo2
@@ -148,6 +140,14 @@ class _OnBoardingState extends State<OnBoarding> {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
+      child: Text(
+        index == size ? "Continuar" : "Siguiente",
+        style: TextStyle(
+            color: index == size
+                ? ColorsSelect.textButton2
+                : ColorsSelect.textButton1,
+            fontSize: 16),
+      ),
     ),
   );
 }
@@ -156,6 +156,7 @@ class _OnBoardingState extends State<OnBoarding> {
 
 
 class ContentBoarding extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const ContentBoarding({
     Key? key,
     this.text,

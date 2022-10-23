@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use, avoid_print
 
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -94,13 +95,13 @@ class BodyContent extends StatefulWidget {
 }
 
 class _BodyContentState extends State<BodyContent> {
-  final emailcontroller = TextEditingController();
-  final passwordcontroller = TextEditingController();
+  final email_controller = TextEditingController();
+  final password_controller = TextEditingController();
 
   @override
   void dispose() {
-    emailcontroller.dispose();
-    passwordcontroller.dispose();
+    email_controller.dispose();
+    password_controller.dispose();
     super.dispose();
   }
   bool value = false;
@@ -124,7 +125,7 @@ class _BodyContentState extends State<BodyContent> {
           height: 70,
           margin: const EdgeInsets.only(bottom: 15),
           child: TextFormField(
-            controller: emailcontroller,
+            controller: email_controller,
             decoration: InputDecoration(
               labelText: 'Email addres',
               labelStyle: const TextStyle(
@@ -156,7 +157,7 @@ class _BodyContentState extends State<BodyContent> {
           width: 310,
           height: 70,
           child: TextFormField(
-            controller: passwordcontroller,
+            controller: password_controller,
             obscureText: visible,
             obscuringCharacter: '*',
             decoration: InputDecoration(
@@ -214,8 +215,16 @@ class _BodyContentState extends State<BodyContent> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: ElevatedButton(
-            onPressed: () {
-              fetchPost();
+            onPressed: () async {
+              try {
+                final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: email_controller.text, password: password_controller.text);
+                if (user != null) {
+                  showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("landingPage"));
+                }
+              } catch (e) {
+                print(e);
+              }
             },
             style: ElevatedButton.styleFrom(
                 primary: ColorsRegisterView.btnNewAccount,
@@ -293,8 +302,8 @@ class _BodyContentState extends State<BodyContent> {
       headers: headers,
       body: json.encode({
         "idChannel": 1,
-        "email": emailcontroller.text,
-        "password": passwordcontroller.text,
+        "email": email_controller.text,
+        "password": password_controller.text,
         "idPlatform": 2,
         "idRole": 1,
         "idDevice": ""
@@ -309,7 +318,6 @@ class _BodyContentState extends State<BodyContent> {
       const storage = FlutterSecureStorage();
       await storage.write(key: 'jqwt', value: map["token"]);
       await storage.write(key: 'idUser', value: map["idUser"]);
-      // ignore: avoid_print
       print(map["message"]);
       print(response.body);
       _showAlertDialog(map["message"]);

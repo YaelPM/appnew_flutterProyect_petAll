@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -52,7 +54,6 @@ String? serializeParam(dynamic param, ParamType paramType) {
         return null;
     }
   } catch (e) {
-    print('Error serializing parameter: $e');
     return null;
   }
 }
@@ -154,7 +155,6 @@ dynamic deserializeParam(
         return null;
     }
   } catch (e) {
-    print('Error deserializing parameter: $e');
     return null;
   }
 }

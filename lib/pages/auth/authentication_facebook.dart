@@ -10,7 +10,6 @@ class AuthenticationFacebook{
       // Once signed in, return the UserCredential
       await FirebaseAuth.instance.signInWithCredential(credential);
     }
-    final AccessToken? accessToken = await FacebookAuth.instance.accessToken;
     // or FacebookAuth.i.accessToken
   }
   static Future<void> checkIfIsLogued() async {

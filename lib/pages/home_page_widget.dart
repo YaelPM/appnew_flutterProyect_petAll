@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:app_new/pages/auth/authentication_facebook.dart';
 import 'package:app_new/pages/progress_view.dart';
+import 'package:app_new/styles/colors/colors_views.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +12,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import '../models/product_model.dart';
-import 'auth/authentication.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
@@ -78,7 +78,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: Color(0xFF4E157F),
+        backgroundColor: ColorsSelect.txtBohe,
         automaticallyImplyLeading: true,
         title: Text(
           'Tienda',
@@ -192,7 +192,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           15, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -220,7 +220,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               .title1
                                               .override(
                                                 fontFamily: 'Poppins',
-                                                color: Color(0xFF65A038),
+                                                color: const Color(0xFF65A038),
                                                 fontWeight: FontWeight.bold,
                                               ),
                                         ),
@@ -239,14 +239,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 10, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        children: [
+                                        children: const [
                                           Icon(
                                             Icons.pets,
                                             color: Color(0xFF65A038),
@@ -258,7 +258,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
+                                            padding: const EdgeInsetsDirectional
                                                 .fromSTEB(1, 0, 0, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -309,7 +309,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                           ],
                         ),
-                        Divider(
+                        const Divider(
                           height: 2,
                           thickness: 1,
                           indent: 1,
@@ -318,7 +318,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                         Padding(
                           padding:
-                              EdgeInsetsDirectional.fromSTEB(15, 10, 0, 10),
+                              const EdgeInsetsDirectional.fromSTEB(15, 10, 0, 10),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -336,7 +336,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ],
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0, 10, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -345,11 +345,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             FlutterFlowIconButton(
-                                              borderColor: Color(0xFF75449D),
+                                              borderColor: const Color(0xFF75449D),
                                               borderRadius: 30,
                                               borderWidth: 1,
                                               buttonSize: 60,
-                                              fillColor: Color(0xFFF2F2F2),
+                                              fillColor: const Color(0xFFF2F2F2),
                                               icon: Icon(
                                                 Icons.add,
                                                 color:
@@ -365,7 +365,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   5, 0, 0, 0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -381,7 +381,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         .override(
                                                           fontFamily: 'Poppins',
                                                           color:
-                                                              Color(0xFF4C147D),
+                                                              const Color(0xFF4C147D),
                                                         ),
                                                   ),
                                                 ],
@@ -398,7 +398,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -435,7 +435,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -446,7 +446,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   Container(
                                     width: 250,
                                     height: 30,
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: TextFormField(
                                       controller: textController,
                                       autofocus: true,
@@ -456,43 +456,43 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             'Buscar productos o servicios',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyText2,
-                                        enabledBorder: UnderlineInputBorder(
+                                        enabledBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        focusedBorder: UnderlineInputBorder(
+                                        focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        errorBorder: UnderlineInputBorder(
+                                        errorBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
                                         focusedErrorBorder:
-                                            UnderlineInputBorder(
+                                            const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
@@ -516,8 +516,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     borderRadius: 30,
                                     borderWidth: 1,
                                     buttonSize: 40,
-                                    fillColor: Color(0xFFFC1560),
-                                    icon: Icon(
+                                    fillColor: const Color(0xFFFC1560),
+                                    icon: const Icon(
                                       Icons.calendar_view_day_outlined,
                                       color: Colors.white,
                                       size: 20,
@@ -678,7 +678,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         fontWeight:
                                                             FontWeight.normal,
                                                       ),
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -712,12 +712,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         color:
-                                                            Color(0xFF75A757),
+                                                            const Color(0xFF75A757),
                                                         fontSize: 9,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                       ),
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -748,12 +748,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         color:
-                                                            Color(0xFF75A757),
+                                                            const Color(0xFF75A757),
                                                         fontSize: 9,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                       ),
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -771,7 +771,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -784,7 +784,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: Color(0xFFE0E0E0),
+                                    color: const Color(0xFFE0E0E0),
                                     width: 1,
                                   ),
                                 ),
@@ -809,7 +809,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -850,7 +850,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 10, 10, 10),
                                 child: Container(
                                   width: 100,
@@ -860,7 +860,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         .secondaryBackground,
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         15, 0, 15, 0),
                                     child: ListView(
                                       padding: EdgeInsets.zero,
@@ -869,7 +869,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 3, 0, 0),
                                           child: Container(
                                             width: 120,
@@ -914,12 +914,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         color:
-                                                            Color(0xFF4F1581),
+                                                            const Color(0xFF4F1581),
                                                         fontSize: 9,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                       ),
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -950,12 +950,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         color:
-                                                            Color(0xFF4F1581),
+                                                            const Color(0xFF4F1581),
                                                         fontSize: 9,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                       ),
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -986,12 +986,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         color:
-                                                            Color(0xFF4F1581),
+                                                            const Color(0xFF4F1581),
                                                         fontSize: 9,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                       ),
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -1009,7 +1009,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -1022,7 +1022,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: Color(0xFFE0E0E0),
+                                    color: const Color(0xFFE0E0E0),
                                     width: 1,
                                   ),
                                 ),
@@ -1047,7 +1047,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1093,7 +1093,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 child: Container(
                                   width: 300,
                                   height: 50,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Color(0xFF8EBF6F),
                                   ),
                                   child: DefaultTabController(

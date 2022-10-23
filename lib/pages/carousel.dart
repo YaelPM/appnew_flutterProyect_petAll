@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late final PageController pageController;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   int pageNo = 0;
 
   Timer? carasouelTmer;
@@ -219,6 +219,11 @@ class _HomeState extends State<Home> {
         ),
       ),
       bottomNavigationBar: AnimatedContainer(
+        duration: const Duration(
+          milliseconds: 800,
+        ),
+        curve: Curves.easeInOutSine,
+        height: showBtmAppBr ? 70 : 0,
         child: BottomAppBar(
           notchMargin: 8.0,
           shape: const CircularNotchedRectangle(),
@@ -255,11 +260,6 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-        duration: const Duration(
-          milliseconds: 800,
-        ),
-        curve: Curves.easeInOutSine,
-        height: showBtmAppBr ? 70 : 0,
       ),
     );
   }
@@ -433,13 +433,13 @@ class _GridBState extends State<GridB> {
                       children: [
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon: const Icon(
                             CupertinoIcons.heart,
                           ),
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon: const Icon(
                             CupertinoIcons.cart,
                           ),
                         ),
