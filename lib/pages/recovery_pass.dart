@@ -208,7 +208,7 @@ class _BodyContentState extends State<BodyContent> {
             title: const Text("Status de la operacion:"),
             content: Text(res),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: const Text(
                   "CERRAR",
                   style: TextStyle(color: Color.fromARGB(255, 3, 116, 177)),
@@ -223,7 +223,7 @@ class _BodyContentState extends State<BodyContent> {
         });
   }
    Future<String> fetchPost() async {
-    final storage = new FlutterSecureStorage();
+    const storage = FlutterSecureStorage();
     var value = await storage.read(key: 'jwt');
     var iduser = await storage.read(key: 'idUser');
     

@@ -170,7 +170,7 @@ class _BodyContentState extends State<BodyContent> {
           ),
           child: ElevatedButton(
             onPressed: () {
-              if (!_email.text.isEmpty) {
+              if (_email.text.isNotEmpty) {
                 fetchPost();
               }
               showCupertinoModalPopup(context: context, builder: (context)=> const ProgressView("recovery"));
@@ -197,7 +197,7 @@ class _BodyContentState extends State<BodyContent> {
             title: const Text("Status de la operacion:"),
             content: Text(res),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: const Text(
                   "CERRAR",
                   style: TextStyle(color: Color.fromARGB(255, 3, 116, 177)),

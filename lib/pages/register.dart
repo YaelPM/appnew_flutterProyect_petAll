@@ -94,18 +94,18 @@ class BodyContent extends StatefulWidget {
 
 class _BodyContentState extends State<BodyContent> {
 
-  final name_controller = TextEditingController();
-  final email_controller = TextEditingController();
-  final password_controller = TextEditingController();
-  final telefono_controller = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final telefonoController = TextEditingController();
   final _keyForm = GlobalKey<FormState>();
 
    @override
   void dispose() {
-    name_controller.dispose();
-    email_controller.dispose();
-    password_controller.dispose();
-    telefono_controller.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    telefonoController.dispose();
     super.dispose();
   }
 
@@ -131,7 +131,7 @@ class _BodyContentState extends State<BodyContent> {
             height: 70,
             margin: const EdgeInsets.only(bottom: 12),
             child: TextFormField(
-              controller: name_controller,
+              controller: nameController,
               ////////////////////////////////////////////////////////////////////////
               validator: (value){
                 if(RegExp(r"[A-Za-z]").hasMatch(value!)){
@@ -173,7 +173,7 @@ class _BodyContentState extends State<BodyContent> {
             height: 70,
             margin: const EdgeInsets.only(bottom: 12),
             child: TextFormField(
-              controller: email_controller,
+              controller: emailController,
               //////////////////////////////////////////////////////////////////////////
                validator: (value){
                 if(RegExp(r"[A-Za-z]").hasMatch(value!)){
@@ -214,7 +214,7 @@ class _BodyContentState extends State<BodyContent> {
             width: 310,
             height: 70,
             child: TextFormField(
-              controller: password_controller,
+              controller: passwordController,
                validator: (value){
                 if(RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value!)){
                   return null;
@@ -265,7 +265,7 @@ class _BodyContentState extends State<BodyContent> {
             height: 70,
             margin: const EdgeInsets.only(bottom: 12),
             child: TextFormField(
-              controller: telefono_controller,
+              controller: telefonoController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Teléfono',
@@ -397,9 +397,9 @@ class _BodyContentState extends State<BodyContent> {
               onPressed: () async {
                 if(_keyForm.currentState!.validate()){
                    try {
-                      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                        email: email_controller.text,
-                        password: password_controller.text,
+                      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
                       );
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'weak-password') {
@@ -412,7 +412,7 @@ class _BodyContentState extends State<BodyContent> {
                             action: SnackBarAction(
                               label: 'Okay',
                               onPressed: () {
-                                email_controller.text = "";
+                                emailController.text = "";
                               },
                             ),
                           ),
@@ -425,7 +425,7 @@ class _BodyContentState extends State<BodyContent> {
                             action: SnackBarAction(
                               label: 'Okay',
                               onPressed: () {
-                                email_controller.text = "";
+                                emailController.text = "";
                               },
                             ),
                           ),
@@ -512,10 +512,10 @@ class _BodyContentState extends State<BodyContent> {
       headers: headers,
       body: json.encode({
         "idUser": 0,
-        "email": email_controller.text,
-        "name": name_controller.text,
+        "email": emailController.text,
+        "name": nameController.text,
         "phoneNumber": "",
-        "pass": password_controller.text,
+        "pass": passwordController.text,
         "idRole": 1,
         "idPlatform": 2,
         "idChannel": 1,

@@ -23,37 +23,35 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       body: Center(
         child: SizedBox(
+          height: double.infinity,
+          width: double.infinity,
           child: CustomPaint(
+            painter: _SplashCanvas(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(30),
-                  child: Container(
-                    child: Image.asset(
-                      "assets/images_home/splash.png",
-                      alignment: Alignment.center,
-                      height: 150,
-                    ),
+                  child: Image.asset(
+                    "assets/images_home/splash.png",
+                    alignment: Alignment.center,
+                    height: 150,
                   ),
                 ),
               ],
             ),
-            painter: _SplashCanvas(),
           ),
-          height: double.infinity,
-          width: double.infinity,
         ),
       ),
     );
   }
 
-  _toOnbording() async {
-    await Future.delayed(const Duration(milliseconds: 5000), () {});
+  _toOnbording(){
+    Future.delayed(const Duration(milliseconds: 5000), () {});
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) =>const  OnBoarding(),
+        builder: (context) =>const OnBoarding(),
       ),
     );
   }

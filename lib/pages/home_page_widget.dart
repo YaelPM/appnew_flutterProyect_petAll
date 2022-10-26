@@ -59,7 +59,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     productos.clear();
     databaseReference.child('productos').onChildAdded.listen((event) {
       ProductData productData = ProductData.fromJson(event.snapshot.value as Map);
-      print(productData);
       Product product = Product(key:event.snapshot.key, productData: productData);
       productos.add(product);
       setState(() {});

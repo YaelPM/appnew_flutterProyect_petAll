@@ -52,7 +52,6 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
         child: AppBar(
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          actions: [],
           flexibleSpace: FlexibleSpaceBar(
             title: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 14),
@@ -275,14 +274,14 @@ class _RegistermascotWidgetState extends State<RegistermascotWidget> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
-                            color: const Color(0xFFF1F4F8),
+                            color: Color(0xFFF1F4F8),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
-                            color: const Color(0x00000000),
+                            color: Color(0x00000000),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),

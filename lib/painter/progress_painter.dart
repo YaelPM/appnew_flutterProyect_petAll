@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:app_new/styles/colors/colors_views.dart';
 
